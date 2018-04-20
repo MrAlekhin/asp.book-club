@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -14,10 +15,10 @@ namespace BookService
     {
 
         [OperationContract]
-        string (int value);
-        
+        int AddBook (string Name, DateTime ReleaseDate, string ISBN);
 
-        // TODO: Add your service operations here
+        [OperationContract]
+        SqlDataReader GetBook(int value);
     }
 
 }
