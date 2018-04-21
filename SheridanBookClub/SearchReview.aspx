@@ -24,7 +24,7 @@
 
         }
 
-        form div{
+        form> div{
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
             padding-left: 20px;
@@ -114,8 +114,8 @@
             margin: 0;
             padding: 5px;
             overflow-y:auto;
-            height: 100%;
-
+            height: 240px;
+            display: inline-block;
         }
         li{
             margin-bottom: 10px;
@@ -125,6 +125,38 @@
             cursor: pointer;
             background-color: #ff5e50;
             color: white;
+        }
+
+        .reviews{
+            top: 6vh;
+            position: absolute;
+            padding: 5px;
+            width: 480px;
+            height: 100%;
+            right: calc((100vw - 800px)/2);
+            border-radius: 0px;
+            overflow-y: auto;
+        }
+
+        .review{
+            margin-bottom: 15px;
+            height:auto;
+            width: 100%;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.40);
+            border-radius: 5px;
+            background-color: white;
+            display:block;
+        }
+        .review> .header{
+            text-align: left;
+            padding: 10px;
+            font-weight:800;
+        }
+
+        .review> .content{
+            text-align: left;
+            padding: 10px;
+            font-weight:200;
         }
         
     </style>
@@ -139,12 +171,12 @@
             <div class="filter">
                 <table  runat="server" >
                     <tr>
-                        <td><label runat="server" for="Bookid">Book ID</label></td>
-                        <td><input runat="server" id="Bookid" name="Bookid" type="text" /></td>
+                        <td><label runat="server" for="BookName">Book Name</label></td>
+                        <td><input runat="server" required="required" id="BookName" name="BookName" type="text" onkeyup="myFunction()" /></td>
                     </tr>
                     <tr>
-                        <td><label runat="server" for="BookName">Book Name</label></td>
-                        <td><input runat="server" id="BookName" name="BookName" type="text" /></td>
+                        <td><label runat="server" for="Bookid">Book ID</label></td>
+                        <td><input runat="server" required="required" id="Bookid" name="Bookid" type="text"  /></td>
                     </tr>
                     <tr>
                         <td><label runat="server" for="Reviewer">Reviewer</label></td>
@@ -158,9 +190,52 @@
                 <hr />
                 <ul id="listBook" runat="server"></ul>
             </div>
-            
+            <div class="reviews" runat="server" id="Reviews">
+                <div class="review">
+                    <div class="header">Reviewer Name</div>
+                    <div class="content">Proin leo tortor, dictum a lorem et, vehicula molestie magna. Integer non ullamcorper ligula, eget pharetra purus. Morbi convallis aliquam odio, in vulputate eros fringilla in. Nullam id tortor pulvinar ex iaculis mattis non a enim. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras gravida, arcu nec varius volutpat, arcu purus porta ante, non tincidunt libero magna pharetra mauris. Praesent orci lectus, cursus quis placerat id, lacinia eget magna. Donec nec suscipit dui.</div>
+                </div>
+            </div>
             
         </div>
     </form>
+    <script>
+        window.onload = function () {
+            ul = document.getElementById("listBook");
+            li = ul.getElementsByTagName("li");
+            for (i = 0; i < li.length; i++) {
+                li[i].addEventListener("click", function () {
+                    getValue(this.getAttribute("value"));
+                });
+            }
+        }
+        function myFunction() {
+            var input, filter, ul, li, a, i;
+            input = document.getElementById("BookName");
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("listBook");
+            li = ul.getElementsByTagName("li");
+            for (i = 0; i < li.length; i++) {
+                
+                if (li[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+
+                }
+            }
+        }
+
+        function getValue(value) {
+            
+            var params = value.split("-");
+            console.log(params);
+            document.getElementById("BookName").value = "";
+            document.getElementById("Bookid").value = "";
+            document.getElementById("BookName").value = params[1];
+            document.getElementById("Bookid").value = params[0];
+            myFunction();
+        }
+    </script>
 </body>
 </html>

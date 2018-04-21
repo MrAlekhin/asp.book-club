@@ -12,58 +12,89 @@ namespace SheridanBookClub
 {
     public partial class SearchReview : System.Web.UI.Page
     {
-        List<Book> bookList;
+        Dictionary<int, Book> bookCollection;
         protected void Page_Load(object sender, EventArgs e)
         {
             BookService.BookServiceClient client = new BookService.BookServiceClient();
 
-            bookList = client.GetBook(-1);
-            Dictionary<string, Book> bookCollection = new Dictionary<string, Book>();
+            List<Book> bookList = client.GetBook(-1);
+            bookCollection = new Dictionary<int, Book>();
             foreach (Book book in bookList)
             {
                 HtmlGenericControl li = new HtmlGenericControl("li");
-                li.Attributes.Add("value", book.Id + "-" + book.Name + "-" + book.ISBN);
+                li.Attributes.Add("value", book.Id + "-" + book.Name);
                 li.InnerText=book.Name;
                 listBook.Controls.Add(li);
 
-                bookCollection.Add(book.Id+"-"+book.Name, book);
+                bookCollection.Add(book.Id, book);
             }
             search.ServerClick += new EventHandler(this.search_Click);
         }
 
         protected void search_Click(object sender, EventArgs e)
         {
-            foreach (Book book in bookList)
+            int id=-1;
+            string reviewer = Reviewer.Value;
+            if (!Bookid.Value.Equals(string.Empty))
             {
-                HtmlGenericControl li = new HtmlGenericControl("li");
-                li.Attributes.Add("value", book.Id + "-" + book.Name + "-" + book.ISBN);
-                li.InnerText = book.Name;
-                listBook.Controls.Add(li);
+                try
+                {
+                    id = int.Parse(Bookid.Value);
+                    Book myValue;
+                    if (bookCollection.TryGetValue(id, out myValue)) {
+                        SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Reviews;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                        try
+                        {
+                            con.Open();
+                            SqlCommand command;
+                            if (!reviewer.Equals(string.Empty))
+                            {
+                                command = new SqlCommand("SELECT * FROM Review WHERE BookID=@BookID AND Reviewer=@Reviewer", con);
+                                command.Parameters.AddWithValue("@Reviewer", Reviewer);
+                            }
+                            else
+                            {
+                                command = new SqlCommand("SELECT * FROM Review WHERE BookID=@BookID", con);
+                            }
+                            command.Parameters.AddWithValue("@BookID", myValue.Id);
+                            SqlDataReader r = command.ExecuteReader();
+                            if (r.HasRows)
+                            {
+                                while (r.Read()) {
+                                    HtmlGenericControl review = new HtmlGenericControl("div");
+                                    HtmlGenericControl reviewHeader = new HtmlGenericControl("div");
+                                    HtmlGenericControl reviewContent = new HtmlGenericControl("div");
+                                    review.Attributes.Add("class", "review");
+                                    reviewHeader.Attributes.Add("class", "header");
+                                    reviewContent.Attributes.Add("class", "content");
+                                    reviewHeader.InnerText = r.GetString(1) + " - " + r.GetDateTime(3);
+                                    reviewContent.InnerText = r.GetString(2);
+                                    review.Controls.Add(reviewHeader);
+                                    review.Controls.Add(reviewContent);
+                                    Reviews.Controls.Add(review);
+                                }
+                            }
+                            r.Close();
+                        }
+                        catch (SqlException ex)
+                        {
 
+                        }
+                        finally
+                        {
+                            if (con.State == System.Data.ConnectionState.Open)
+                            {
+                                con.Close();
+                            }
+                        }
+                    }
+                }
+                catch(Exception ex)
+                {
+
+                }
                
             }
-            //SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Reviews;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Alert", "Data has been saved", true);
-            //try
-            //{
-            //    con.Open();
-            //    SqlCommand command = new SqlCommand("INSERT INTO Book(Name, ReleaseDate, ISBN) values (@N, @R, @I)", con);
-            //    command.Parameters.AddWithValue("@N", Name);
-            //    command.Parameters.AddWithValue("@R", ReleaseDate);
-            //    command.Parameters.AddWithValue("@I", ISBN);
-            //    return command.ExecuteNonQuery();
-            //}
-            //catch (SqlException ex)
-            //{
-            //    return -1;
-            //}
-            //finally
-            //{
-            //    if (con.State == System.Data.ConnectionState.Open)
-            //    {
-            //        con.Close();
-            //    }
-            //}
         }
 
 
