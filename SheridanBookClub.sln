@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SheridanBookClub", "SheridanBookClub\SheridanBookClub.csproj", "{B7B0E359-C9C9-4455-B46F-E2857CC13D3B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A27065E6-13DE-434A-BB6F-7ED3EDF2C37C} = {A27065E6-13DE-434A-BB6F-7ED3EDF2C37C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookService", "WSFBookService\BookService.csproj", "{A27065E6-13DE-434A-BB6F-7ED3EDF2C37C}"
 EndProject

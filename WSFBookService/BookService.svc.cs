@@ -36,8 +36,9 @@ namespace BookService
             
         }
 
-        public SqlDataReader GetBook (int id)
+        public List<Book> GetBook (int id)
         {
+            List<Book> bookList = null;
             SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Books;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             try
             {
@@ -53,7 +54,23 @@ namespace BookService
                 }
                 command.Parameters.AddWithValue("@I", id);
                 SqlDataReader r = command.ExecuteReader();
-                return r;
+                if (r.HasRows)
+                {
+                    bookList = new List<Book>();
+                    while (r.Read())
+                    {
+                        bookList.Add(new Book(r.GetInt32(0),
+                            r.GetString(1),
+                            r.GetDateTime(2),
+                            r.GetString(3)));
+                    }
+
+                }
+                if (!r.IsClosed)
+                {
+                    r.Close();
+                }
+                return bookList;
             }
             catch (SqlException ex)
             {

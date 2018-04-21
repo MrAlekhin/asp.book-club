@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="96c890ec-40a1-4ede-867e-dc875d9a0cc6" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:50869/BookService.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="BookService.xsd" MetadataType="Schema" ID="f6cbd66f-8d38-42a2-98b7-45c9feb4902b" SourceId="1" SourceUrl="http://localhost:50869/BookService.svc?xsd=xsd0" />
+    <MetadataFile FileName="BookService1.xsd" MetadataType="Schema" ID="058d1d06-3f4d-4cd8-be8a-458d78581b57" SourceId="1" SourceUrl="http://localhost:50869/BookService.svc?xsd=xsd1" />
+    <MetadataFile FileName="BookService.wsdl" MetadataType="Wsdl" ID="c3f17be1-20aa-4c9c-8e3a-e0abafe2536b" SourceId="1" SourceUrl="http://localhost:50869/BookService.svc?wsdl" />
+    <MetadataFile FileName="BookService2.xsd" MetadataType="Schema" ID="ecd9cc74-6ea1-499c-8fe6-bdf1f36cb1ae" SourceId="1" SourceUrl="http://localhost:50869/BookService.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

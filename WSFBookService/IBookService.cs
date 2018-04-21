@@ -18,7 +18,7 @@ namespace BookService
         int AddBook (string Name, DateTime ReleaseDate, string ISBN);
 
         [OperationContract]
-        SqlDataReader GetBook(int value);
+        List<Book> GetBook(int value);
     }
 
 }
