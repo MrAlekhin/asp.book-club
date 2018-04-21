@@ -49,8 +49,8 @@ namespace SheridanBookClub
                             SqlCommand command;
                             if (!reviewer.Equals(string.Empty))
                             {
-                                command = new SqlCommand("SELECT * FROM Review WHERE BookID=@BookID AND Reviewer=@Reviewer", con);
-                                command.Parameters.AddWithValue("@Reviewer", Reviewer);
+                                command = new SqlCommand("SELECT * FROM Review WHERE BookID=@BookID OR UPPER(Reviewer)=UPPER(@Reviewer)", con);
+                                command.Parameters.AddWithValue("@Reviewer", reviewer);
                             }
                             else
                             {
@@ -58,6 +58,7 @@ namespace SheridanBookClub
                             }
                             command.Parameters.AddWithValue("@BookID", myValue.Id);
                             SqlDataReader r = command.ExecuteReader();
+                            Reviews.InnerHtml = "";
                             if (r.HasRows)
                             {
                                 while (r.Read()) {
@@ -74,10 +75,16 @@ namespace SheridanBookClub
                                     Reviews.Controls.Add(review);
                                 }
                             }
+                            else
+                            {
+                                Reviews.InnerHtml = "No Results";
+                            }
+
                             r.Close();
                         }
-                        catch (SqlException ex)
+                        catch (Exception ex)
                         {
+
 
                         }
                         finally

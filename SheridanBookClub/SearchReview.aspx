@@ -66,7 +66,7 @@
             text-align:left;
             margin: 0;
             padding: 0;
-            height: 400px;
+            height: 650px;
             box-sizing: border-box;
             padding: 10px;
             border-radius: 10px;
@@ -114,7 +114,7 @@
             margin: 0;
             padding: 5px;
             overflow-y:auto;
-            height: 240px;
+            height: 470px;
             display: inline-block;
         }
         li{
@@ -190,12 +190,7 @@
                 <hr />
                 <ul id="listBook" runat="server"></ul>
             </div>
-            <div class="reviews" runat="server" id="Reviews">
-                <div class="review">
-                    <div class="header">Reviewer Name</div>
-                    <div class="content">Proin leo tortor, dictum a lorem et, vehicula molestie magna. Integer non ullamcorper ligula, eget pharetra purus. Morbi convallis aliquam odio, in vulputate eros fringilla in. Nullam id tortor pulvinar ex iaculis mattis non a enim. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras gravida, arcu nec varius volutpat, arcu purus porta ante, non tincidunt libero magna pharetra mauris. Praesent orci lectus, cursus quis placerat id, lacinia eget magna. Donec nec suscipit dui.</div>
-                </div>
-            </div>
+            <div class="reviews" runat="server" id="Reviews"></div>
             
         </div>
     </form>
