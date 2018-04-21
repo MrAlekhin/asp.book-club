@@ -1,10 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SearchReview.aspx.cs" Inherits="SheridanBookClub.SearchReview" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AddReview.aspx.cs" Inherits="SheridanBookClub.AddReview" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Book Reviews</title>
+    <title>Add Review</title>
     <style type="text/css">
         .auto-style1 {
             margin-top: 84px;
@@ -114,7 +114,7 @@
             margin: 0;
             padding: 5px;
             overflow-y:auto;
-            height: 470px;
+            height: 550px;
             display: inline-block;
         }
         li{
@@ -139,8 +139,10 @@
         }
 
         .review{
+            box-sizing:border-box;
             margin-bottom: 15px;
-            height:auto;
+            margin-top: 10px;
+            height:300px;
             width: 100%;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.40);
             border-radius: 5px;
@@ -158,17 +160,20 @@
             padding: 10px;
             font-weight:200;
         }
-
-        
+        .reviews> .header{
+            text-align: left;
+            padding: 10px;
+            font-weight:700;
+            font-size: 2em;
+        }
         
     </style>
 </head>
-<body>
     <header>
-        <h1>BOOK REVIEWS</h1>
+        <h1>ADD REVIEWS</h1>
     </header>
-    <form id="form1" runat="server" >
-        
+<body>
+    <form id="form1" runat="server">
         <div>
             <div class="filter">
                 <table  runat="server" >
@@ -180,65 +185,64 @@
                         <td><label runat="server" for="Bookid">Book ID</label></td>
                         <td><input runat="server" required="required" id="Bookid" name="Bookid" type="text"  /></td>
                     </tr>
-                    <tr>
-                        <td><label runat="server" for="Reviewer">Reviewer</label></td>
-                        <td><input runat="server" id="Reviewer" name="Reviewer" type="text" /></td>
-                    </tr>
-                    <tr>
-                        <td><input runat="server" id="search" hidden type="submit" OnClick="search_Click"/></td>
-                        <td class="btn-search"><label runat="server" for="search">Search</label></td>
-                    </tr>
                 </table>
                 <hr />
                 <ul id="listBook" runat="server"></ul>
             </div>
-            <div class="reviews" runat="server" id="Reviews">
+            <div class="reviews" style="text-align: left" runat="server" id="Reviews">
+                <div class="header" id="bookName">Book Name</div>
+                <div class="review" id="reviewContainer">
+                    <textarea required="required" style="border: 0px; width:100%; height:100%; resize: none; box-sizing:border-box;"  rows="50" runat="server" id="review"></textarea>
+                </div>
                 
+                    <label for="reviewer" style="display:inline">Reviewer</label>
+                    <input required="required" style="border: 0px; resize: none; box-sizing:border-box;" runat="server" id="reviewer"/>
+                    <label for="reviewer" style="display:inline">Rate</label>
+                    <input required="required" style="border: 0px; resize: none; box-sizing:border-box;" type="number" min="0" max="10" runat="server" id="rate"/>
+                    <input runat="server" id="add" hidden type="submit" OnClick="search_Click"/>
+                    <label runat="server" style="margin: 10px; margin-left: 80%; background-color: #ff5e50; text-align: center; padding: 10px; color: white;" for="add">Add</label>
             </div>
             
         </div>
     </form>
-    <script>
-        window.onload = function () {
-            ul = document.getElementById("listBook");
-            li = ul.getElementsByTagName("li");
-            for (i = 0; i < li.length; i++) {
-                li[i].addEventListener("click", function () {
-                    getValue(this.getAttribute("value"));
-                });
-            }
-        }
-        function myFunction() {
-            var input, filter, ul, li, a, i;
-            input = document.getElementById("BookName");
-            filter = input.value.toUpperCase();
-            ul = document.getElementById("listBook");
-            li = ul.getElementsByTagName("li");
-            for (i = 0; i < li.length; i++) {
-                
-                if (li[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
-                    li[i].style.display = "";
-                } else {
-                    li[i].style.display = "none";
+     <script>
+         window.onload = function () {
+             ul = document.getElementById("listBook");
+             li = ul.getElementsByTagName("li");
+             for (i = 0; i < li.length; i++) {
+                 li[i].addEventListener("click", function () {
+                     getValue(this.getAttribute("value"));
+                 });
+             }
+         }
+         function myFunction() {
+             var input, filter, ul, li, a, i;
+             input = document.getElementById("BookName");
+             filter = input.value.toUpperCase();
+             ul = document.getElementById("listBook");
+             li = ul.getElementsByTagName("li");
+             for (i = 0; i < li.length; i++) {
 
-                }
-            }
-        }
+                 if (li[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                     li[i].style.display = "";
+                 } else {
+                     li[i].style.display = "none";
 
-        function showForm() {
+                 }
+             }
+         }
 
-        }
+         function getValue(value) {
 
-        function getValue(value) {
-            
-            var params = value.split("-");
-            console.log(params);
-            document.getElementById("BookName").value = "";
-            document.getElementById("Bookid").value = "";
-            document.getElementById("BookName").value = params[1];
-            document.getElementById("Bookid").value = params[0];
-            myFunction();
-        }
+             var params = value.split("-");
+             console.log(params);
+             document.getElementById("BookName").value = "";
+             document.getElementById("Bookid").value = "";
+             document.getElementById("BookName").value = params[1];
+             document.getElementById("Bookid").value = params[0];
+             document.getElementById("bookName").innerHTML = params[1];
+             myFunction();
+         }
     </script>
 </body>
 </html>

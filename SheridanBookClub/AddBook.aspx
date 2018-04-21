@@ -1,10 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SearchReview.aspx.cs" Inherits="SheridanBookClub.SearchReview" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AddBook.aspx.cs" Inherits="SheridanBookClub.AddBook" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Book Reviews</title>
+    <title></title>
     <style type="text/css">
         .auto-style1 {
             margin-top: 84px;
@@ -158,87 +158,13 @@
             padding: 10px;
             font-weight:200;
         }
-
-        
         
     </style>
 </head>
 <body>
-    <header>
-        <h1>BOOK REVIEWS</h1>
-    </header>
-    <form id="form1" runat="server" >
-        
+    <form id="form1" runat="server">
         <div>
-            <div class="filter">
-                <table  runat="server" >
-                    <tr>
-                        <td><label runat="server" for="BookName">Book Name</label></td>
-                        <td><input runat="server" required="required" id="BookName" name="BookName" type="text" onkeyup="myFunction()" /></td>
-                    </tr>
-                    <tr>
-                        <td><label runat="server" for="Bookid">Book ID</label></td>
-                        <td><input runat="server" required="required" id="Bookid" name="Bookid" type="text"  /></td>
-                    </tr>
-                    <tr>
-                        <td><label runat="server" for="Reviewer">Reviewer</label></td>
-                        <td><input runat="server" id="Reviewer" name="Reviewer" type="text" /></td>
-                    </tr>
-                    <tr>
-                        <td><input runat="server" id="search" hidden type="submit" OnClick="search_Click"/></td>
-                        <td class="btn-search"><label runat="server" for="search">Search</label></td>
-                    </tr>
-                </table>
-                <hr />
-                <ul id="listBook" runat="server"></ul>
-            </div>
-            <div class="reviews" runat="server" id="Reviews">
-                
-            </div>
-            
         </div>
     </form>
-    <script>
-        window.onload = function () {
-            ul = document.getElementById("listBook");
-            li = ul.getElementsByTagName("li");
-            for (i = 0; i < li.length; i++) {
-                li[i].addEventListener("click", function () {
-                    getValue(this.getAttribute("value"));
-                });
-            }
-        }
-        function myFunction() {
-            var input, filter, ul, li, a, i;
-            input = document.getElementById("BookName");
-            filter = input.value.toUpperCase();
-            ul = document.getElementById("listBook");
-            li = ul.getElementsByTagName("li");
-            for (i = 0; i < li.length; i++) {
-                
-                if (li[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
-                    li[i].style.display = "";
-                } else {
-                    li[i].style.display = "none";
-
-                }
-            }
-        }
-
-        function showForm() {
-
-        }
-
-        function getValue(value) {
-            
-            var params = value.split("-");
-            console.log(params);
-            document.getElementById("BookName").value = "";
-            document.getElementById("Bookid").value = "";
-            document.getElementById("BookName").value = params[1];
-            document.getElementById("Bookid").value = params[0];
-            myFunction();
-        }
-    </script>
 </body>
 </html>
