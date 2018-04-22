@@ -166,13 +166,47 @@
             font-weight:700;
             font-size: 2em;
         }
+
+        nav{
+            position: absolute;
+            left: 30px;
+            padding: 15px;
+            text-align: left;
+
+        }
+
+        nav a{
+            text-transform: uppercase;
+            text-decoration: none;
+            display: block;
+            color: whitesmoke;
+            font-weight:700;
+            margin-bottom: 20px;
+            background-color: gray;
+            padding: 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.40);
+        }
+
+        nav a:hover{
+            background-color: #ff5e50;
+        }
+
+        .active{
+            background-color: slategray;
+        }
+
         
     </style>
 </head>
+<body>
     <header>
         <h1>ADD REVIEWS</h1>
     </header>
-<body>
+    <nav>
+        <a href="SearchReview.aspx">Search Review</a>
+        <a class="active" href="AddReview.aspx">Add Review</a>
+        <a href="AddBook.aspx">Add Book</a>
+    </nav>
     <form id="form1" runat="server">
         <div>
             <div class="filter">
@@ -197,8 +231,8 @@
                 
                     <label for="reviewer" style="display:inline">Reviewer</label>
                     <input required="required" style="border: 0px; resize: none; box-sizing:border-box;" runat="server" id="reviewer"/>
-                    <label for="reviewer" style="display:inline">Rate</label>
-                    <input required="required" style="border: 0px; resize: none; box-sizing:border-box;" type="number" min="0" max="10" runat="server" id="rate"/>
+                    <label for="rate" style="display:inline">Rate</label>
+                    <input style="border: 0px; resize: none; box-sizing:border-box;" type="number" min="0" max="10" runat="server" id="rate"/>
                     <input runat="server" id="add" hidden type="submit" OnClick="search_Click"/>
                     <label runat="server" style="margin: 10px; margin-left: 80%; background-color: #ff5e50; text-align: center; padding: 10px; color: white;" for="add">Add</label>
             </div>

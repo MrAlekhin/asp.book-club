@@ -4,6 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Book Reviews</title>
     <style type="text/css">
         .auto-style1 {
@@ -159,6 +160,35 @@
             font-weight:200;
         }
 
+        nav{
+            position: absolute;
+            left: 30px;
+            padding: 15px;
+            text-align: left;
+
+        }
+
+        nav a{
+            text-transform: uppercase;
+            text-decoration: none;
+            display: block;
+            color: whitesmoke;
+            font-weight:700;
+            margin-bottom: 20px;
+            background-color: gray;
+            padding: 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.40);
+        }
+
+        nav a:hover{
+            background-color: #ff5e50;
+        }
+
+        .active{
+            background-color: slategray;
+        }
+
+
         
         
     </style>
@@ -167,6 +197,11 @@
     <header>
         <h1>BOOK REVIEWS</h1>
     </header>
+    <nav>
+        <a class="active" href="SearchReview.aspx">Search Review</a>
+        <a href="AddReview.aspx">Add Review</a>
+        <a href="AddBook.aspx">Add Book</a>
+    </nav>
     <form id="form1" runat="server" >
         
         <div>

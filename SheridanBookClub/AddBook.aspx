@@ -4,7 +4,13 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Add Review</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+    <link rel="stylesheet" href="/resources/demos/style.css"/>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <style type="text/css">
         .auto-style1 {
             margin-top: 84px;
@@ -99,7 +105,7 @@
         .btn-search label{
            background-color: #ff5e50;
            width: 50px;
-           margin-left: 60%;
+           margin-left: calc(100% - 50px);
            padding: 5px;
            border-radius: 5px;
            box-shadow: 0 3px 6px #00000017;
@@ -114,7 +120,7 @@
             margin: 0;
             padding: 5px;
             overflow-y:auto;
-            height: 470px;
+            height: 550px;
             display: inline-block;
         }
         li{
@@ -139,7 +145,10 @@
         }
 
         .review{
+            padding: 10px;
+            box-sizing:border-box;
             margin-bottom: 15px;
+            margin-top: 10px;
             height:auto;
             width: 100%;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.40);
@@ -158,13 +167,128 @@
             padding: 10px;
             font-weight:200;
         }
+        .reviews> .header{
+            text-align: left;
+            padding: 10px;
+            font-weight:700;
+            font-size: 2em;
+        }
+        .ui-widget-header{
+            color: #ff5e50;
+        }
+        .ui-state-active, .ui-widget-content .ui-state-active{
+            border: 1px solid #ff5e50;
+            background: #ff5e50;
+        }
+        table{
+            width: 100%;
+        }
+        table input, .filter input{
+            border: none;
+            background-color: whitesmoke;
+            padding: 5px;
+            margin-right: 10px;
+            width: 95%;
+            color: #666666;
+        }
+
+        nav{
+            position: absolute;
+            left: 30px;
+            padding: 15px;
+            text-align: left;
+
+        }
+
+        nav a{
+            text-transform: uppercase;
+            text-decoration: none;
+            display: block;
+            color: whitesmoke;
+            font-weight:700;
+            margin-bottom: 20px;
+            background-color: gray;
+            padding: 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.40);
+        }
+
+        nav a:hover{
+            background-color: #ff5e50;
+        }
+
+        .active{
+            background-color: slategray;
+        }
+        
         
     </style>
 </head>
 <body>
+    <header>
+        <h1>ADD BOOK</h1>
+    </header>
+    <nav>
+        <a href="SearchReview.aspx">Search Review</a>
+        <a href="AddReview.aspx">Add Review</a>
+        <a class="active" href="AddBook.aspx">Add Book</a>
+    </nav>
     <form id="form1" runat="server">
         <div>
+            <div class="filter">
+
+                <input id="BookName" name="BookName" type="text" onkeyup="myFunction()" placeholder="Search"/>
+                <hr />
+                <ul id="listBook" runat="server"></ul>
+            </div>
+            <div class="reviews" style="text-align: left" runat="server" id="Reviews">
+                <div class="review">
+                    <table  runat="server" >
+                        <tr>
+                            <td><label for="name">Book Name</label></td>
+                            <td><input runat="server" required="required" id="name" type="text" onkeyup="myFunction()" /></td>
+                        </tr>
+                        <tr>
+                            <td><label for="releaseDate">Release Date</label></td>
+                            <td><input runat="server" required="required" id="releaseDate" type="text"  /></td>
+                        </tr>
+                        <tr>
+                            <td><label for="isbn">ISBN</label></td>
+                            <td><input runat="server" required="required" id="isbn" type="text" /></td>
+                        </tr>
+                        <tr>
+                            <td><input runat="server" id="add" hidden="hidden" type="submit"/></td>
+                            <td class="btn-search"><label style="text-align:center;" runat="server" for="add">Add</label></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>  
         </div>
     </form>
+    <script>
+        $(function () {
+            $("#releaseDate").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                maxDate: "+0D"
+            });
+        });
+
+        function myFunction() {
+            var input, filter, ul, li, a, i;
+            input = document.getElementById("BookName");
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("listBook");
+            li = ul.getElementsByTagName("li");
+            for (i = 0; i < li.length; i++) {
+
+                if (li[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+
+                }
+            }
+        }
+    </script>
 </body>
 </html>

@@ -78,17 +78,11 @@ namespace SheridanBookClub
                             {
                                 reviewCounter++;
                                 Session["reviewCounter"] = reviewCounter;
-                                HttpContext.Current.Response.Write("<SCRIPT LANGUAGE='JavaScript'>" +
-                               "alert('Successfuly Added! You added: " +
-                                +reviewCounter+
-                               " reviews')" +
-                               "</SCRIPT>");
+                                Page.ClientScript.RegisterStartupScript(typeof(Page), "alert", "<script language=JavaScript>alert('Successfuly Added! You added: "+ reviewCounter+ " reviews');</script>");
                             }
                             else
                             {
-                                HttpContext.Current.Response.Write("<SCRIPT LANGUAGE='JavaScript'>" +
-                              "alert('Something went wrong!')" +
-                              "</SCRIPT>");
+                                Page.ClientScript.RegisterStartupScript(typeof(Page), "alert", "<script language=JavaScript>alert('Something went wrong :(');</script>");
                             }
                         }
                         catch (Exception ex)

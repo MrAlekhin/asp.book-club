@@ -13,6 +13,8 @@ namespace SheridanBookClub
     public partial class SearchReview : System.Web.UI.Page
     {
         Dictionary<int, Book> bookCollection;
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             BookService.BookServiceClient client = new BookService.BookServiceClient();
@@ -49,7 +51,7 @@ namespace SheridanBookClub
                             SqlCommand command;
                             if (!reviewer.Equals(string.Empty))
                             {
-                                command = new SqlCommand("SELECT * FROM Review WHERE BookID=@BookID OR UPPER(Reviewer)=UPPER(@Reviewer)", con);
+                                command = new SqlCommand("SELECT * FROM Review WHERE BookID=@BookID AND UPPER(Reviewer)=UPPER(@Reviewer)", con);
                                 command.Parameters.AddWithValue("@Reviewer", reviewer);
                             }
                             else
@@ -58,7 +60,7 @@ namespace SheridanBookClub
                             }
                             command.Parameters.AddWithValue("@BookID", myValue.Id);
                             SqlDataReader r = command.ExecuteReader();
-                            Reviews.InnerHtml = "";
+                            Reviews.Controls.Clear();
                             if (r.HasRows)
                             {
                                 while (r.Read()) {
